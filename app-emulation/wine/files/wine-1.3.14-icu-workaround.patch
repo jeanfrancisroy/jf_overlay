@@ -1,0 +1,337 @@
+From f8e34dc523a0ca13f066cc25c27e713eb5e4e209 Mon Sep 17 00:00:00 2001
+From: Alexandre Rostovtsev <tetromino@gmail.com>
+Date: Sat, 19 Feb 2011 20:59:38 -0500
+Subject: [PATCH] Work around build failures in msxml3 caused by icu includes from libxml2
+
+libxml2 can be build with icu support, in which case libxml2 and libxslt
+headers will pull in icu headers.
+icu-4.6 (and perhaps other versions too) assumes that if WIN32, _WIN32,
+WIN64, or _WIN64 are defined, then the platform lacks inttypes.h; it
+then tries to define some standard integer types, which conflict with
+existing definitions, and as a result, msxml3 will fail to build.
+See http://bugs.gentoo.org/show_bug.cgi?id=354745
+
+We therefore have to wrap all libxml2 and libxslt include statements
+with #include "win_defines_save.h" / #include "win_defines_restore.h"
+which will save and then restore the *WIN* defines.
+
+Signed-off-by: Alexandre Rostovtsev <tetromino@gmail.com>
+---
+ dlls/msxml3/domdoc.c              |    2 +
+ dlls/msxml3/httprequest.c         |    2 +
+ dlls/msxml3/msxml_private.h       |    4 ++
+ dlls/msxml3/node.c                |    2 +
+ dlls/msxml3/queryresult.c         |    2 +
+ dlls/msxml3/saxreader.c           |    2 +
+ dlls/msxml3/schema.c              |    2 +
+ dlls/msxml3/win_defines_restore.h |   56 +++++++++++++++++++++++++++++++++++++
+ dlls/msxml3/win_defines_save.h    |   56 +++++++++++++++++++++++++++++++++++++
+ dlls/msxml3/xdr.c                 |    2 +
+ dlls/msxml3/xslpattern.h          |    2 +
+ dlls/msxml3/xslpattern.y          |    2 +
+ 12 files changed, 134 insertions(+), 0 deletions(-)
+ create mode 100644 dlls/msxml3/win_defines_restore.h
+ create mode 100644 dlls/msxml3/win_defines_save.h
+
+diff --git a/dlls/msxml3/domdoc.c b/dlls/msxml3/domdoc.c
+index f5bfaa4..66e8c2d 100644
+--- a/dlls/msxml3/domdoc.c
++++ b/dlls/msxml3/domdoc.c
+@@ -49,10 +49,12 @@ WINE_DEFAULT_DEBUG_CHANNEL(msxml);
+ 
+ #ifdef HAVE_LIBXML2
+ 
++#include "win_defines_save.h" /* icu workaround */
+ #include <libxml/xpathInternals.h>
+ #include <libxml/xmlsave.h>
+ #include <libxml/SAX2.h>
+ #include <libxml/parserInternals.h>
++#include "win_defines_restore.h" /* icu workaround */
+ 
+ /* not defined in older versions */
+ #define XML_SAVE_FORMAT     1
+diff --git a/dlls/msxml3/httprequest.c b/dlls/msxml3/httprequest.c
+index 12eaa08..d109668 100644
+--- a/dlls/msxml3/httprequest.c
++++ b/dlls/msxml3/httprequest.c
+@@ -40,7 +40,9 @@ WINE_DEFAULT_DEBUG_CHANNEL(msxml);
+ 
+ #ifdef HAVE_LIBXML2
+ 
++#include "win_defines_save.h" /* icu workaround */
+ #include <libxml/encoding.h>
++#include "win_defines_restore.h" /* icu workaround */
+ 
+ static const WCHAR MethodGetW[] = {'G','E','T',0};
+ static const WCHAR MethodPutW[] = {'P','U','T',0};
+diff --git a/dlls/msxml3/msxml_private.h b/dlls/msxml3/msxml_private.h
+index 8d9d8dd..9eb428c 100644
+--- a/dlls/msxml3/msxml_private.h
++++ b/dlls/msxml3/msxml_private.h
+@@ -159,6 +159,7 @@ BOOL dispex_query_interface(DispatchEx*,REFIID,void**);
+ 
+ #ifdef HAVE_LIBXML2
+ 
++#include "win_defines_save.h" /* icu workaround */
+ #ifdef HAVE_LIBXML_PARSER_H
+ #include <libxml/parser.h>
+ #endif
+@@ -166,6 +167,7 @@ BOOL dispex_query_interface(DispatchEx*,REFIID,void**);
+ 
+ 
+ #include <libxml/xmlerror.h>
++#include "win_defines_restore.h" /* icu workaround */
+ 
+ extern void schemasInit(void);
+ extern void schemasCleanup(void);
+@@ -357,6 +359,7 @@ static inline HRESULT return_null_bstr(BSTR *p)
+ 
+ extern void* libxslt_handle;
+ #ifdef SONAME_LIBXSLT
++# include "win_defines_save.h" /* icu workaround */
+ # ifdef HAVE_LIBXSLT_PATTERN_H
+ #  include <libxslt/pattern.h>
+ # endif
+@@ -365,6 +368,7 @@ extern void* libxslt_handle;
+ # endif
+ # include <libxslt/xsltutils.h>
+ # include <libxslt/xsltInternals.h>
++# include "win_defines_restore.h" /* icu workaround */
+ 
+ # define MAKE_FUNCPTR(f) extern typeof(f) * p##f
+ MAKE_FUNCPTR(xsltApplyStylesheet);
+diff --git a/dlls/msxml3/node.c b/dlls/msxml3/node.c
+index fd1cf97..728d551 100644
+--- a/dlls/msxml3/node.c
++++ b/dlls/msxml3/node.c
+@@ -33,7 +33,9 @@
+ #include "msxml_private.h"
+ 
+ #ifdef HAVE_LIBXML2
++# include "win_defines_save.h" /* icu workaround */
+ # include <libxml/HTMLtree.h>
++# include "win_defines_restore.h" /* icu workaround */
+ #endif
+ 
+ #include "wine/debug.h"
+diff --git a/dlls/msxml3/queryresult.c b/dlls/msxml3/queryresult.c
+index 7dc6899..f6a1c8c 100644
+--- a/dlls/msxml3/queryresult.c
++++ b/dlls/msxml3/queryresult.c
+@@ -48,8 +48,10 @@ WINE_DEFAULT_DEBUG_CHANNEL(msxml);
+ 
+ #ifdef HAVE_LIBXML2
+ 
++#include "win_defines_save.h" /* icu workaround */
+ #include <libxml/xpath.h>
+ #include <libxml/xpathInternals.h>
++#include "win_defines_restore.h" /* icu workaround */
+ 
+ int registerNamespaces(xmlXPathContextPtr ctxt);
+ xmlChar* XSLPattern_to_XPath(xmlXPathContextPtr ctxt, xmlChar const* xslpat_str);
+diff --git a/dlls/msxml3/saxreader.c b/dlls/msxml3/saxreader.c
+index 0d98f6a..1f25a54 100644
+--- a/dlls/msxml3/saxreader.c
++++ b/dlls/msxml3/saxreader.c
+@@ -42,8 +42,10 @@ WINE_DEFAULT_DEBUG_CHANNEL(msxml);
+ 
+ #ifdef HAVE_LIBXML2
+ 
++#include "win_defines_save.h" /* icu workaround */
+ #include <libxml/SAX2.h>
+ #include <libxml/parserInternals.h>
++#include "win_defines_restore.h" /* icu workaround */
+ 
+ typedef struct _saxreader
+ {
+diff --git a/dlls/msxml3/schema.c b/dlls/msxml3/schema.c
+index 9239326..5acc4b8 100644
+--- a/dlls/msxml3/schema.c
++++ b/dlls/msxml3/schema.c
+@@ -47,6 +47,7 @@ WINE_DEFAULT_DEBUG_CHANNEL(msxml);
+ 
+ #ifdef HAVE_LIBXML2
+ 
++#include "win_defines_save.h" /* icu workaround */
+ #include <libxml/tree.h>
+ #include <libxml/xmlschemas.h>
+ #include <libxml/schemasInternals.h>
+@@ -54,6 +55,7 @@ WINE_DEFAULT_DEBUG_CHANNEL(msxml);
+ #include <libxml/parser.h>
+ #include <libxml/parserInternals.h>
+ #include <libxml/xmlIO.h>
++#include "win_defines_restore.h" /* icu workaround */
+ 
+ xmlDocPtr XDR_to_XSD_doc(xmlDocPtr xdr_doc, xmlChar const* nsURI);
+ 
+diff --git a/dlls/msxml3/win_defines_restore.h b/dlls/msxml3/win_defines_restore.h
+new file mode 100644
+index 0000000..8771861
+--- /dev/null
++++ b/dlls/msxml3/win_defines_restore.h
+@@ -0,0 +1,56 @@
++/*
++ *    Restore previously saved *WIN* defines
++ *
++ * Copyright 2011 Alexandre Rostovtsev
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
++ */
++
++/* libxml2 can be built with icu support, in which case libxml2 and libxslt
++ * headers will pull in icu headers.
++ * icu-4.6 (and perhaps other versions too) assumes that if WIN32, _WIN32,
++ * WIN64, or _WIN64 are defined, then the platform lacks inttypes.h; it then
++ * tries to define some standard integer types, which conflict with existing
++ * definitions, and as a result, msxml3 will fail to build.
++ * See http://bugs.gentoo.org/show_bug.cgi?id=354745
++ *
++ * We therefore need to wrap all libxml2 and libxslt include statements with
++ * #include "win_defines_save.h" / #include "win_defines_restore.h"
++ * which will save and then restore the *WIN* defines. */
++
++#ifndef __WINE_CONFIG_H
++# error You must include config.h to use this header
++#endif
++
++#ifdef HAVE_INTTYPES_H
++
++#ifdef WIN32_DEFINE_SAVED
++# define WIN32 WIN32_DEFINE_SAVED
++# undef WIN32_DEFINE_SAVED
++#endif
++#ifdef _WIN32_DEFINE_SAVED
++# define _WIN32 _WIN32_DEFINE_SAVED
++# undef _WIN32_DEFINE_SAVED
++#endif
++#ifdef WIN64_DEFINE_SAVED
++# define WIN64 WIN64_DEFINE_SAVED
++# undef WIN64_DEFINE_SAVED
++#endif
++#ifdef _WIN64_DEFINE_SAVED
++# define _WIN64 _WIN64_DEFINE_SAVED
++# undef _WIN64_DEFINE_SAVED
++#endif
++
++#endif /* HAVE_INTTYPES_H */
+diff --git a/dlls/msxml3/win_defines_save.h b/dlls/msxml3/win_defines_save.h
+new file mode 100644
+index 0000000..60c31ab
+--- /dev/null
++++ b/dlls/msxml3/win_defines_save.h
+@@ -0,0 +1,56 @@
++/*
++ *    Filter and save certain *WIN* defines
++ *
++ * Copyright 2011 Alexandre Rostovtsev
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
++ */
++
++/* libxml2 can be built with icu support, in which case libxml2 and libxslt
++ * headers will pull in icu headers.
++ * icu-4.6 (and perhaps other versions too) assumes that if WIN32, _WIN32,
++ * WIN64, or _WIN64 are defined, then the platform lacks inttypes.h; it then
++ * tries to define some standard integer types, which conflict with existing
++ * definitions, and as a result, msxml3 will fail to build.
++ * See http://bugs.gentoo.org/show_bug.cgi?id=354745
++ *
++ * We therefore need to wrap all libxml2 and libxslt include statements with
++ * #include "win_defines_save.h" / #include "win_defines_restore.h"
++ * which will save and then restore the *WIN* defines. */
++
++#ifndef __WINE_CONFIG_H
++# error You must include config.h to use this header
++#endif
++
++#ifdef HAVE_INTTYPES_H
++
++#ifdef WIN32
++# define WIN32_DEFINE_SAVED WIN32
++# undef WIN32
++#endif
++#ifdef _WIN32
++# define _WIN32_DEFINE_SAVED _WIN32
++# undef _WIN32
++#endif
++#ifdef WIN64
++# define WIN64_DEFINE_SAVED WIN64
++# undef WIN64
++#endif
++#ifdef _WIN64
++# define _WIN64_DEFINE_SAVED _WIN64
++# undef _WIN64
++#endif
++
++#endif /* HAVE_INTTYPES_H */
+diff --git a/dlls/msxml3/xdr.c b/dlls/msxml3/xdr.c
+index 6e0da94..89b6652 100644
+--- a/dlls/msxml3/xdr.c
++++ b/dlls/msxml3/xdr.c
+@@ -31,7 +31,9 @@ WINE_DEFAULT_DEBUG_CHANNEL(msxml);
+ 
+ #ifdef HAVE_LIBXML2
+ 
++#include "win_defines_save.h" /* icu workaround */
+ #include <libxml/tree.h>
++#include "win_defines_restore.h" /* icu workaround */
+ 
+ static const xmlChar DT_prefix[] = "dt";
+ static const xmlChar DT_href[] = "urn:schemas-microsoft-com:datatypes";
+diff --git a/dlls/msxml3/xslpattern.h b/dlls/msxml3/xslpattern.h
+index 1397e79..776839e 100644
+--- a/dlls/msxml3/xslpattern.h
++++ b/dlls/msxml3/xslpattern.h
+@@ -31,9 +31,11 @@
+ #error You must have libxml2 to use this header
+ #endif
+ 
++#include "win_defines_save.h" /* icu workaround */
+ #include <libxml/tree.h>
+ #include <libxml/xmlstring.h>
+ #include <libxml/xpath.h>
++#include "win_defines_restore.h" /* icu workaround */
+ 
+ typedef struct _parser_param {
+     void* yyscanner;
+diff --git a/dlls/msxml3/xslpattern.y b/dlls/msxml3/xslpattern.y
+index 2e20328..4eb665b 100644
+--- a/dlls/msxml3/xslpattern.y
++++ b/dlls/msxml3/xslpattern.y
+@@ -24,7 +24,9 @@
+ 
+ #ifdef HAVE_LIBXML2
+ #include "xslpattern.h"
++#include "win_defines_save.h" /* icu workaround */
+ #include <libxml/xpathInternals.h>
++#include "win_defines_restore.h" /* icu workaround */
+ 
+ WINE_DEFAULT_DEBUG_CHANNEL(msxml);
+ 
+-- 
+1.7.4.1
+
