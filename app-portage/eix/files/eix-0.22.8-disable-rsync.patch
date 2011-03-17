@@ -140,3 +140,38 @@ diff -urN eix-0.22.8-orig//src/eix-sync.in eix-0.22.8/src/eix-sync.in
  	CallEmergeMetadata
  	UpdateDiff
  }
+
+diff -urN eix-0.22.8-orig//manpage/eix.1.in eix-0.22.8/manpage/eix.1.in
+--- eix-0.22.8-orig//manpage/eix.1.in	2011-03-16 23:56:34.016001816 -0400
++++ eix-0.22.8/manpage/eix.1.in	2011-03-16 23:56:53.309001829 -0400
+@@ -1397,21 +1397,6 @@
+ options -d, -u, or -l are used.
+ It is meant to set environment variables for the other programs.
+ .TP
+-.BI ~ command
+-This is only important if eix-sync options B<-s> or B<-2> are used.
+-In this case, I<command> will be executed before the first call of B<rsync>;
+-the output of I<command> is evaluated within the B<eix-sync> shell.
+-If I<command> or the evaluation of its output are not successful,
+-B<eix-sync> will stop with an error.
+-This can be used to execute e.g. B<keychain> and to return the content of
+-the appropriate I<~/.keychain/*-sh> file or to return export-commands for
+-the current B<SSH_AUTH_SOCK> and B<SSH_AGENT_PID>.
+-It is also admissible that the output of I<command> is a command which
+-modifies the variables B<PORTAGE_RSYNC_OPTS>, B<PORTAGE_RSYNC_EXTRA_OPTS>,
+-B<PORTDIR>, B<PORTDIR_SERVER>, B<PORTDIR_CLIENT>, B<SERVER>, or B<CLIENT>.
+-These variables are filled with defaults when I<command> is called and
+-will later be used for the B<rsync> command(s) with their obvious meaning.
+-.TP
+ .BI @ command
+ Adds a hook for I<command>; the actual execution of I<command> is postponed
+ until B<emerge --sync> was (successfully) called.
+@@ -1429,8 +1414,6 @@
+ 
+ layman calls and B<!> hooks in order of @SYSCONFDIR@/eix-sync.conf
+ 
+-.BR ~ " hooks"
+-
+ .BR "emerge --sync"
+ 
+ .BR @ " hooks"
