@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/app-portage/eix/eix-0.22.8.ebuild,v 1.1 2011/03/12 04:35:18 darkside Exp $
 
-EAPI="4"
+EAPI="3"
 
 inherit base multilib
 
