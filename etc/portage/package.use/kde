@@ -1,0 +1,6 @@
+dev-python/PyQt4 declarative
+kde-base/kdelibs semantic-desktop
+kde-base/kdepimlibs semantic-desktop
+x11-libs/qt-svg accessibility
+dev-libs/libgpg-error static-libs
+kde-base/solid -networkmanager
