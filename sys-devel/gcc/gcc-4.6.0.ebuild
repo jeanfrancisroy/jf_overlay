@@ -66,7 +66,7 @@ DEPEND="${RDEPEND}
 PDEPEND=">=sys-devel/gcc-config-1.4"
 
 if [[ ${CATEGORY} != cross-* ]] ; then
-	PDEPEND="${PDEPEND} elibc_glibc? ( >=sys-libs/glibc-2.8 )"
+	PDEPEND="${PDEPEND} elibc_glibc? ( >=sys-libs/glibc-2.12 )"
 fi
 
 src_unpack() {
