@@ -76,7 +76,6 @@ src_unpack() {
 
 	[[ ${CHOST} == ${CTARGET} ]] && epatch "${FILESDIR}"/gcc-spec-env.patch
 	[[ ${CTARGET} == *-softfloat-* ]] && epatch "${FILESDIR}"/4.4.0/gcc-4.4.0-softfloat.patch
-	epatch "${FILESDIR}"/${P}-getenv.patch
 }
 
 pkg_setup() {
