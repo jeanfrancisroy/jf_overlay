@@ -1,0 +1,70 @@
+diff -ru chromium-13.0.772.0.old/gpu/command_buffer/common/types.h chromium-13.0.772.0/gpu/command_buffer/common/types.h
+--- chromium-13.0.772.0.old/gpu/command_buffer/common/types.h	2011-05-26 03:34:39.487181360 -0500
++++ chromium-13.0.772.0/gpu/command_buffer/common/types.h	2011-05-26 09:49:35.492866803 -0500
+@@ -10,6 +10,7 @@
+ #if !defined(_MSC_VER)
+ #include <stdint.h>
+ #endif
++#include <cstddef>
+ #include <string>
+ 
+ typedef signed char         schar;
+diff -ru chromium-13.0.772.0.old/third_party/ots/src/os2.cc chromium-13.0.772.0/third_party/ots/src/os2.cc
+--- chromium-13.0.772.0.old/third_party/ots/src/os2.cc	2011-05-26 03:30:27.842465096 -0500
++++ chromium-13.0.772.0/third_party/ots/src/os2.cc	2011-05-26 08:51:05.748464587 -0500
+@@ -2,6 +2,8 @@
+ // Use of this source code is governed by a BSD-style license that can be
+ // found in the LICENSE file.
+ 
++#include <cstddef>
++
+ #include "os2.h"
+ 
+ #include "head.h"
+diff -ru chromium-13.0.772.0.old/third_party/tcmalloc/chromium/src/base/vdso_support.cc chromium-13.0.772.0/third_party/tcmalloc/chromium/src/base/vdso_support.cc
+--- chromium-13.0.772.0.old/third_party/tcmalloc/chromium/src/base/vdso_support.cc	2011-05-26 03:19:01.745361268 -0500
++++ chromium-13.0.772.0/third_party/tcmalloc/chromium/src/base/vdso_support.cc	2011-05-26 03:45:25.234063441 -0500
+@@ -35,6 +35,8 @@
+ // VDSOSupport -- a class representing kernel VDSO (if present).
+ //
+ 
++#include <cstddef>
++
+ #include "base/vdso_support.h"
+ 
+ #ifdef HAVE_VDSO_SUPPORT     // defined in vdso_support.h
+diff -ru chromium-13.0.772.0.old/third_party/tcmalloc/chromium/src/memory_region_map.cc chromium-13.0.772.0/third_party/tcmalloc/chromium/src/memory_region_map.cc
+--- chromium-13.0.772.0.old/third_party/tcmalloc/chromium/src/memory_region_map.cc	2011-05-26 03:19:01.838695115 -0500
++++ chromium-13.0.772.0/third_party/tcmalloc/chromium/src/memory_region_map.cc	2011-05-26 04:28:36.810489559 -0500
+@@ -113,6 +113,7 @@
+ #endif
+ 
+ #include <algorithm>
++#include <cstddef>
+ #include <set>
+ 
+ #include "memory_region_map.h"
+diff -ru chromium-13.0.772.0.old/third_party/tcmalloc/chromium/src/symbolize.h chromium-13.0.772.0/third_party/tcmalloc/chromium/src/symbolize.h
+--- chromium-13.0.772.0.old/third_party/tcmalloc/chromium/src/symbolize.h	2011-05-26 03:19:00.982023739 -0500
++++ chromium-13.0.772.0/third_party/tcmalloc/chromium/src/symbolize.h	2011-05-26 04:30:50.918069896 -0500
+@@ -37,6 +37,7 @@
+ #ifdef HAVE_STDINT_H
+ #include <stdint.h>  // for uintptr_t
+ #endif
++#include <cstddef>
+ #include <map>
+ 
+ using std::map;
+diff -ru chromium-13.0.772.0.old/third_party/tcmalloc/chromium/src/system-alloc.cc chromium-13.0.772.0/third_party/tcmalloc/chromium/src/system-alloc.cc
+--- chromium-13.0.772.0.old/third_party/tcmalloc/chromium/src/system-alloc.cc	2011-05-26 03:19:00.742022421 -0500
++++ chromium-13.0.772.0/third_party/tcmalloc/chromium/src/system-alloc.cc	2011-05-26 04:33:24.635783837 -0500
+@@ -46,6 +46,9 @@
+ #include <sys/mman.h>
+ #endif
+ #include <errno.h>
++
++#include <cstddef>
++
+ #include "system-alloc.h"
+ #include "internal_logging.h"
+ #include "base/logging.h"
