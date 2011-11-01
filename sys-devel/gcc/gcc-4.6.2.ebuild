@@ -5,6 +5,8 @@
 PATCH_VER="1.0"
 UCLIBC_VER="1.0"
 
+ETYPE="gcc-compiler"
+
 # Hardened gcc 4 stuff
 PIE_VER="0.4.5"
 SPECS_VER="0.2.0"
@@ -23,7 +25,7 @@ DESCRIPTION="The GNU Compiler Collection"
 
 LICENSE="GPL-3 LGPL-3 || ( GPL-3 libgcc libstdc++ gcc-runtime-library-exception-3.1 ) FDL-1.2"
 KEYWORDS="~*"
-IUSE=""
+iusE=""
 
 RDEPEND=">=sys-libs/zlib-1.1.4
 	virtual/libiconv
@@ -74,6 +76,7 @@ src_unpack() {
 	use vanilla && return 0
 
 	[[ ${CHOST} == ${CTARGET} ]] && epatch "${FILESDIR}"/gcc-spec-env.patch
+	epatch "${FILESDIR}"/gcc-4.6-arm.patch
 }
 
 pkg_setup() {
