@@ -31,6 +31,7 @@ src_prepare() {
 	# http://pkgs.fedoraproject.org/gitweb/?p=pypoppler.git;a=tree
 	epatch \
 		"${FILESDIR}"/${P}-75_74.diff \
+		"${FILESDIR}"/${P}-76_75-2.diff \
 		"${FILESDIR}"/${P}-79_78.diff \
 		"${FILESDIR}"/${P}-poppler0.15.0-changes.patch \
 		"${FILESDIR}"/${P}-poppler0.18.0-fix.patch \
