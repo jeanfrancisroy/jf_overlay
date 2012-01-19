@@ -1,0 +1,23 @@
+filetype plugin on
+set grepprg=grep\ -nH\ $*
+filetype indent on
+let g:tex_flavor='latex'
+
+colorscheme desert
+set mouse=v
+syntax on
+set number
+hi LineNr ctermfg=darkgray ctermbg=black
+
+" Utiliser la recherche incrÃ©mentielle
+set incsearch
+
+" surligner les rÃ©sultats de recherche
+set hlsearch
+
+set expandtab ts=4 sw=4
+
+" alt-gauche et alt-droit pour changer de buffer.
+map <M-Left> :bn<CR>
+map <M-Right> :bp<CR>
+
