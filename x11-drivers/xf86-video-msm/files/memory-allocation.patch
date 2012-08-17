@@ -1,0 +1,310 @@
+diff -Naur xf86-video-msm-1.3.0.orig/src/msm-dri2.c xf86-video-msm-1.3.0/src/msm-dri2.c
+--- xf86-video-msm-1.3.0.orig/src/msm-dri2.c	2010-11-05 20:02:33.000000000 +0100
++++ xf86-video-msm-1.3.0/src/msm-dri2.c	2010-11-05 21:34:35.000000000 +0100
+@@ -221,14 +221,14 @@
+     PixmapPtr pixmap;
+     int i;
+ 
+-    buffers = xcalloc(count, sizeof(*buffers));
++    buffers = calloc(count, sizeof(*buffers));
+     if (buffers == NULL)
+ 	return NULL;
+ 
+-    privates = xcalloc(count, sizeof(struct msm_dri2_priv));
++    privates = calloc(count, sizeof(struct msm_dri2_priv));
+ 
+     if (privates == NULL) {
+-	xfree(buffers);
++	free(buffers);
+ 	return NULL;
+     }
+ 
+@@ -287,14 +287,14 @@
+     struct msm_pixmap_priv *pixpriv;
+     PixmapPtr pixmap;
+ 
+-    buffer = xcalloc(1, sizeof(*buffer));
++    buffer = calloc(1, sizeof(*buffer));
+     if (buffer == NULL)
+ 	return NULL;
+ 
+-    private = xcalloc(1, sizeof(struct msm_dri2_priv));
++    private = calloc(1, sizeof(struct msm_dri2_priv));
+ 
+     if (private == NULL) {
+-	xfree(buffer);
++	free(buffer);
+ 	return NULL;
+     }
+ 
+@@ -376,8 +376,8 @@
+ 	(*pScreen->DestroyPixmap)(priv->pixmap);
+     }
+ 
+-    xfree(buffers[0].driverPrivate);
+-    xfree(buffers);
++    free(buffers[0].driverPrivate);
++    free(buffers);
+ }
+ #else
+ static void
+@@ -405,8 +405,8 @@
+ 
+     (*pScreen->DestroyPixmap)(priv->pixmap);
+ 
+-    xfree(buffers->driverPrivate);
+-    xfree(buffers);
++    free(buffers->driverPrivate);
++    free(buffers);
+ }
+ #endif
+ 
+diff -Naur xf86-video-msm-1.3.0.orig/src/msm-driver.c xf86-video-msm-1.3.0/src/msm-driver.c
+--- xf86-video-msm-1.3.0.orig/src/msm-driver.c	2010-11-05 20:02:33.000000000 +0100
++++ xf86-video-msm-1.3.0/src/msm-driver.c	2010-11-05 21:35:19.000000000 +0100
+@@ -422,7 +422,7 @@
+    if (pMsm->fd < 0) {
+       xf86DrvMsg(pScrn->scrnIndex, X_ERROR,
+ 		 "Opening '%s' failed: %s\n", dev, strerror(errno));
+-      xfree(pMsm);
++      free(pMsm);
+       return FALSE;
+    }
+ 
+@@ -438,7 +438,7 @@
+       xf86DrvMsg(pScrn->scrnIndex, X_ERROR,
+ 		 "Unable to read hardware info from %s: %s\n",
+ 		 dev, strerror(errno));
+-      xfree(pMsm);
++      free(pMsm);
+       return FALSE;
+    }
+ 
+@@ -484,7 +484,7 @@
+ 		 "Unable to read the current mode from %s: %s\n",
+ 		 dev, strerror(errno));
+ 
+-      xfree(pMsm);
++      free(pMsm);
+       return FALSE;
+    }
+ 
+@@ -501,7 +501,7 @@
+    default:
+        xf86DrvMsg(pScrn->scrnIndex, X_ERROR,
+ 		  "The driver can only support 16bpp and 24bpp output\n");
+-       xfree(pMsm);
++       free(pMsm);
+        return FALSE;
+    }
+ 
+@@ -509,7 +509,7 @@
+ 			Support24bppFb | Support32bppFb |
+ 			SupportConvert32to24 | SupportConvert24to32)) {
+        ErrorF("Unable to set bitdepth\n");
+-       xfree(pMsm);
++       free(pMsm);
+        return FALSE;
+    }
+ 
+@@ -552,7 +552,7 @@
+    default:
+        xf86DrvMsg(pScrn->scrnIndex, X_ERROR, "The driver can only "
+ 		  "support 16bpp and 24bpp output\n");
+-       xfree(pMsm);
++       free(pMsm);
+        return FALSE;
+    }
+ 
+@@ -560,13 +560,13 @@
+    pScrn->rgbBits = 8;
+ 
+    if (!xf86SetWeight(pScrn, defaultWeight, defaultWeight)) {
+-      xfree(pMsm);
++      free(pMsm);
+       return FALSE;
+    }
+ 
+    /* Initialize default visual */
+    if (!xf86SetDefaultVisual(pScrn, -1)) {
+-      xfree(pMsm);
++      free(pMsm);
+       return FALSE;
+    }
+ 
+@@ -574,7 +574,7 @@
+       Gamma zeros = { 0.0, 0.0, 0.0 };
+ 
+       if (!xf86SetGamma(pScrn, zeros)) {
+-         xfree(pMsm);
++         free(pMsm);
+ 	 return FALSE;
+       }
+    }
+@@ -590,10 +590,10 @@
+ 
+    xf86CollectOptions(pScrn, NULL);
+ 
+-   pMsm->options = xalloc(sizeof(MSMOptions));
++   pMsm->options = malloc(sizeof(MSMOptions));
+ 
+    if (pMsm->options == NULL) {
+-      xfree(pMsm);
++      free(pMsm);
+       return FALSE;
+    }
+ 
+@@ -800,7 +800,7 @@
+    MSMOutputSetup(pScrn);
+ 
+    if (!xf86InitialConfiguration(pScrn, FALSE)) {
+-      xfree(pMsm);
++      free(pMsm);
+       return FALSE;
+    }
+ 
+@@ -880,7 +880,7 @@
+    /* Close EXA */
+    if (pMsm->accelMode != ACCEL_MODE_NONE && pMsm->pExa) {
+       exaDriverFini(pScreen);
+-      xfree(pMsm->pExa);
++      free(pMsm->pExa);
+       pMsm->pExa = NULL;
+    }
+ 
+@@ -1210,7 +1210,7 @@
+       }
+    }
+ 
+-   xfree(sections);
++   free(sections);
+    return foundScreen;
+ }
+ 
+diff -Naur xf86-video-msm-1.3.0.orig/src/msm-drm.c xf86-video-msm-1.3.0/src/msm-drm.c
+--- xf86-video-msm-1.3.0.orig/src/msm-drm.c	2010-11-05 20:02:33.000000000 +0100
++++ xf86-video-msm-1.3.0/src/msm-drm.c	2010-11-05 21:34:35.000000000 +0100
+@@ -172,7 +172,7 @@
+     close.handle = bo->handle;
+     ioctl(bo->fd, DRM_IOCTL_GEM_CLOSE, &close);
+ 
+-    xfree(bo);
++    free(bo);
+ }
+ 
+ struct msm_drm_bo *
+@@ -207,7 +207,7 @@
+     if (ret)
+ 	return NULL;
+ 
+-    bo = xcalloc(1, sizeof(*bo));
++    bo = calloc(1, sizeof(*bo));
+ 
+     if (bo == NULL)
+ 	return NULL;
+@@ -517,7 +517,7 @@
+     if (ret)
+ 	return NULL;
+ 
+-    bo = xcalloc(1, sizeof(*bo));
++    bo = calloc(1, sizeof(*bo));
+ 
+     if (bo == NULL)
+ 	return NULL;
+diff -Naur xf86-video-msm-1.3.0.orig/src/msm-exa.c xf86-video-msm-1.3.0/src/msm-exa.c
+--- xf86-video-msm-1.3.0.orig/src/msm-exa.c	2010-11-05 20:02:33.000000000 +0100
++++ xf86-video-msm-1.3.0/src/msm-exa.c	2010-11-05 21:34:35.000000000 +0100
+@@ -293,7 +293,7 @@
+     ScrnInfoPtr pScrn = xf86Screens[pScreen->myNum];
+     MSMPtr pMsm = MSMPTR(pScrn);
+ 
+-    priv = xcalloc(1, sizeof(struct msm_pixmap_priv));
++    priv = calloc(1, sizeof(struct msm_pixmap_priv));
+ 
+     if (priv == NULL)
+ 	return NULL;
+@@ -307,7 +307,7 @@
+     if (priv->bo)
+ 	return priv;
+ 
+-    xfree(priv);
++    free(priv);
+     return NULL;
+ }
+ 
+@@ -329,7 +329,7 @@
+ 	c2dDestroySurface(priv->c2dsurface);
+ #endif
+ 
+-    xfree(dpriv);
++    free(dpriv);
+ }
+ 
+ Bool
+diff -Naur xf86-video-msm-1.3.0.orig/src/msm-pixmap.c xf86-video-msm-1.3.0/src/msm-pixmap.c
+--- xf86-video-msm-1.3.0.orig/src/msm-pixmap.c	2010-11-05 20:02:33.000000000 +0100
++++ xf86-video-msm-1.3.0/src/msm-pixmap.c	2010-11-05 21:34:35.000000000 +0100
+@@ -157,7 +157,7 @@
+     ScrnInfoPtr pScrn = xf86Screens[pScreen->myNum];
+     MSMPtr pMsm = MSMPTR(pScrn);
+     struct msm_offscreen_area *ret =
+-	xcalloc(1, sizeof(struct msm_offscreen_area));
++	calloc(1, sizeof(struct msm_offscreen_area));
+ 
+     if (ret == NULL)
+ 	return NULL;
+@@ -198,7 +198,7 @@
+     }
+ 
+ err:
+-    xfree(ret);
++    free(ret);
+     return NULL;
+ }
+ 
+@@ -216,7 +216,7 @@
+     else if (area->type == MSM_OFFSCREEN_EXA)
+ 	exaOffscreenFree(pScreen, (ExaOffscreenArea *) area->priv);
+ 
+-    xfree(area);
++    free(area);
+ }
+ 
+ void *
+diff -Naur xf86-video-msm-1.3.0.orig/src/msm-video.c xf86-video-msm-1.3.0/src/msm-video.c
+--- xf86-video-msm-1.3.0.orig/src/msm-video.c	2010-11-05 20:02:33.000000000 +0100
++++ xf86-video-msm-1.3.0/src/msm-video.c	2010-11-05 21:35:19.000000000 +0100
+@@ -153,7 +153,7 @@
+    MSMPortPrivPtr pPriv;
+    int i;
+ 
+-   adapt = xcalloc(1, sizeof(XF86VideoAdaptorRec) +
++   adapt = calloc(1, sizeof(XF86VideoAdaptorRec) +
+ 		   (sizeof(DevUnion) * pMsm->xvports) +
+ 		   (sizeof(MSMPortPrivRec) * pMsm->xvports));
+ 
+@@ -226,7 +226,7 @@
+    return adapt;
+ 
+ fail:
+-   xfree(adapt);
++   free(adapt);
+    return NULL;
+ }
+ 
+@@ -245,7 +245,7 @@
+ 
+    count = xf86XVListGenericAdaptors(pScrn, &list);
+ 
+-   newlist = xalloc((count + 1) * sizeof(XF86VideoAdaptorPtr *));
++   newlist = malloc((count + 1) * sizeof(XF86VideoAdaptorPtr *));
+    if (newlist == NULL)
+       return;
+ 
+@@ -256,5 +256,5 @@
+ 
+    xf86XVScreenInit(pScreen, newlist, count);
+ 
+-   xfree(newlist);
++   free(newlist);
+ }
