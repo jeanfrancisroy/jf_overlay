@@ -1,0 +1,118 @@
+# Taken on http://rhinohide.wordpress.com/2012/02/26/openmpi-on-raspberry-pi/
+diff --git a/opal/asm/base/ARM.asm b/opal/asm/base/ARM.asm
+index 3f545f4..3afb3b1 100644
+--- a/opal/asm/base/ARM.asm
++++ b/opal/asm/base/ARM.asm
+@@ -3,19 +3,16 @@ START_FILE
+ 
+        ALIGN(4)
+ START_FUNC(opal_atomic_mb)
+-       dmb
+        bx      lr
+ END_FUNC(opal_atomic_mb)
+ 
+ 
+ START_FUNC(opal_atomic_rmb)
+-       dmb
+        bx      lr
+ END_FUNC(opal_atomic_rmb)
+ 
+ 
+ START_FUNC(opal_atomic_wmb)
+-       dmb
+        bx      lr
+ END_FUNC(opal_atomic_wmb)
+ 
+@@ -43,7 +40,6 @@ START_FUNC(opal_atomic_cmpset_acq_32)
+        strex   r12, r2, [r0]
+        cmp     r12, #0
+        bne     REFLSYM(3)
+-       dmb
+        mov     r0, #1
+        LSYM(4)
+        movne   r0, #0
+@@ -56,7 +52,6 @@ START_FUNC(opal_atomic_cmpset_rel_32)
+        ldrex   r3, [r0]
+        cmp     r1, r3
+        bne     REFLSYM(6)
+-       dmb
+        strex   r12, r2, [r0]
+        cmp     r12, #0
+        bne     REFLSYM(4)
+@@ -98,7 +93,6 @@ START_FUNC(opal_atomic_cmpset_acq_64)
+        strexd  r1, r6, r7, [r0]
+        cmp     r1, #0
+        bne     REFLSYM(9)
+-       dmb
+        mov     r0, #1
+        LSYM(10)
+        movne   r0, #0
+@@ -116,7 +110,6 @@ START_FUNC(opal_atomic_cmpset_rel_64)
+        it      eq
+        cmpeq   r5, r3
+        bne     REFLSYM(12)
+-       dmb
+        strexd  r1, r6, r7, [r0]
+        cmp     r1, #0
+        bne     REFLSYM(11)
+diff --git a/opal/asm/generated/atomic-local.s b/opal/asm/generated/atomic-local.s
+index 80db940..db4eb56 100644
+--- a/opal/asm/generated/atomic-local.s
++++ b/opal/asm/generated/atomic-local.s
+@@ -4,7 +4,6 @@
+ 	.globl opal_atomic_mb
+ 	.type opal_atomic_mb, #function
+ opal_atomic_mb:
+-       dmb
+        bx      lr
+ 	.size opal_atomic_mb, .-opal_atomic_mb
+ 
+@@ -12,7 +11,6 @@ opal_atomic_mb:
+ 	.globl opal_atomic_rmb
+ 	.type opal_atomic_rmb, #function
+ opal_atomic_rmb:
+-       dmb
+        bx      lr
+ 	.size opal_atomic_rmb, .-opal_atomic_rmb
+ 
+@@ -20,7 +18,6 @@ opal_atomic_rmb:
+ 	.globl opal_atomic_wmb
+ 	.type opal_atomic_wmb, #function
+ opal_atomic_wmb:
+-       dmb
+        bx      lr
+ 	.size opal_atomic_wmb, .-opal_atomic_wmb
+ 
+@@ -52,7 +49,6 @@ opal_atomic_cmpset_acq_32:
+        strex   r12, r2, [r0]
+        cmp     r12, #0
+        bne     .L3
+-       dmb
+        mov     r0, #1
+        .L4:
+        movne   r0, #0
+@@ -67,7 +63,6 @@ opal_atomic_cmpset_rel_32:
+        ldrex   r3, [r0]
+        cmp     r1, r3
+        bne     .L6
+-       dmb
+        strex   r12, r2, [r0]
+        cmp     r12, #0
+        bne     .L4
+diff --git a/opal/include/opal/sys/arm/atomic.h b/opal/include/opal/sys/arm/atomic.h
+index 72ae214..968a289 100644
+--- a/opal/include/opal/sys/arm/atomic.h
++++ b/opal/include/opal/sys/arm/atomic.h
+@@ -38,9 +38,9 @@
+ #define OPAL_HAVE_ATOMIC_MEM_BARRIER 1
+ /* use the DMB instruction if available... */
+ 
+-#define MB()  __asm__ __volatile__ ("dmb" : : : "memory")
+-#define RMB() __asm__ __volatile__ ("dmb" : : : "memory")
+-#define WMB() __asm__ __volatile__ ("dmb" : : : "memory")
++#define MB()  
++#define RMB() 
++#define WMB() 
+ 
+ #elif (OPAL_ASM_ARM_VERSION == 6)
+ 
