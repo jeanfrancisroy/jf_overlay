@@ -36,8 +36,8 @@ HOMEPAGE="http://www.open-mpi.org"
 SRC_URI="http://www.open-mpi.org/software/ompi/v$(get_version_component_range 1-2)/downloads/${MY_P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~arm"
-IUSE="+cxx elibc_FreeBSD fortran heterogeneous hwloc ipv6 mpi-threads romio threads vt
+KEYWORDS="~*"
+IUSE="+cxx elibc_FreeBSD fortran heterogeneous +hwloc ipv6 mpi-threads romio threads vt
 	${IUSE_OPENMPI_FABRICS} ${IUSE_OPENMPI_RM} ${IUSE_OPENMPI_OFED_FEATURES}"
 
 REQUIRED_USE="openmpi_rm_slurm? ( !openmpi_rm_pbs )
@@ -157,7 +157,7 @@ src_configure() {
 }
 
 src_compile () {
-	epatch "${FILESDIR}/${P}-armv6-support.patch"
+	epatch "${FILESDIR}/${PV}"
 	emake
 }
 
