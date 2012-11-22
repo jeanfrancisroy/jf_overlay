@@ -157,7 +157,7 @@ src_configure() {
 }
 
 src_compile () {
-	epatch "${FILESDIR}/${PV}"
+	EPATCH_SOURCE="${FILESDIR}/${PV}" EPATCH_SUFFIX="patch" epatch
 	emake
 }
 
