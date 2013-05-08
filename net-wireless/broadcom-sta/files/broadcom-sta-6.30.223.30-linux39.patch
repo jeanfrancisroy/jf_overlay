@@ -1,0 +1,15 @@
+--- usr/src/bcmwl-6.30.223.30+bdcom/src/wl/sys/wl_cfg80211_hybrid.c.orig	2013-05-08 16:49:38.284010959 -0400
++++ usr/src/bcmwl-6.30.223.30+bdcom/src/wl/sys/wl_cfg80211_hybrid.c	2013-05-08 16:50:18.689011022 -0400
+@@ -2048,7 +2048,12 @@
+ 		ie_len = (size_t)(ies->len);
+ 		rcu_read_unlock();
+ #endif
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 9, 0)
+ 		cfg80211_put_bss(bss);
++#else
++		cfg80211_put_bss(wl_to_wiphy(wl), bss);
++#endif
++
+ 	}
+ 
+ 	tim = bcm_parse_tlvs(ie, ie_len, WLAN_EID_TIM);

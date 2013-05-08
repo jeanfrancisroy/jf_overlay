@@ -55,7 +55,8 @@ src_prepare() {
 		"${FILESDIR}/${PN}-5.100.82.38-gcc.patch" \
 		"${FILESDIR}/${PN}-5.100.82.111-linux-3.0.patch" \
 		"${FILESDIR}/${PN}-5.100.82.112-linux-2.6.39.patch" \
-		"${FILESDIR}/${PN}-5.100.82.112-linux-3.2.patch"
+		"${FILESDIR}/${PN}-5.100.82.112-linux-3.2.patch" \
+		"${FILESDIR}/${PN}-add-support-for-linux-3.9.0.patch"
 	sed -e "s:^#include <asm/system.h>$:#if LINUX_VERSION_CODE < KERNEL_VERSION(3, 4, 0)\\n\\0\\n#endif:" \
 		-i src/wl/sys/wl_linux.c || die "sed failed to patch for linux-3.4"
 }
