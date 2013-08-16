@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-fs/lvm2/lvm2-2.02.98.ebuild,v 1.5 2013/06/19 13:51:06 polynomial-c Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-fs/lvm2/lvm2-2.02.97-r1.ebuild,v 1.17 2013/08/06 18:08:30 axs Exp $
 
 EAPI=5
 inherit eutils multilib toolchain-funcs autotools linux-info udev
@@ -12,7 +12,7 @@ SRC_URI="ftp://sources.redhat.com/pub/lvm2/${PN/lvm/LVM}.${PV}.tgz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 s390 sh sparc x86 ~amd64-linux ~x86-linux"
 
 IUSE="readline static static-libs clvm cman +lvm1 selinux +udev +thin"
 
@@ -39,7 +39,10 @@ RDEPEND="${RDEPEND}
 DEPEND="${DEPEND_COMMON}
 		virtual/pkgconfig
 		>=sys-devel/binutils-2.20.1-r1
-		static? ( udev? ( virtual/udev[static-libs] ) )"
+		static? (
+			udev? ( virtual/udev[static-libs] )
+			selinux? ( sys-libs/libselinux[static-libs] )
+		)"
 
 S="${WORKDIR}/${PN/lvm/LVM}.${PV}"
 
@@ -53,6 +56,10 @@ pkg_setup() {
 		elog "their static versions. If you need the static binaries,"
 		elog "you must append .static to the filename!"
 	fi
+}
+
+src_unpack() {
+	unpack ${A}
 }
 
 src_prepare() {
@@ -101,8 +108,12 @@ src_prepare() {
 	#epatch "${FILESDIR}"/${PN}-2.02.95-udev185.patch
 
 	# Upstream patch for https://bugs.gentoo.org/444328
-	# Merged upstream
-	#epatch "${FILESDIR}"/${PN}-2.02.97-strict-aliasing.patch
+	epatch "${FILESDIR}"/${P}-strict-aliasing.patch
+
+	# for https://bugs.gentoo.org/370217
+	epatch "${FILESDIR}"/${P}-udev-static.patch
+	# for https://bugs.gentoo.org/439414
+	epatch "${FILESDIR}"/${P}-selinux-static.patch
 
 	# Fix calling AR directly with USE static, bug #444082
 	if use static ; then
