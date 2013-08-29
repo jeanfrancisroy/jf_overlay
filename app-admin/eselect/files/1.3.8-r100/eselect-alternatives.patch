@@ -1,7 +1,17 @@
-Index: bin/eselect.in
-===================================================================
---- bin/eselect.in	(revision 863)
-+++ bin/eselect.in	(working copy)
+diff -urN eselect-1.3.8.orig/bin/Makefile.am eselect-1.3.8/bin/Makefile.am
+--- eselect-1.3.8.orig/bin/Makefile.am	2013-08-29 09:51:52.657910505 -0400
++++ eselect-1.3.8/bin/Makefile.am	2013-08-29 09:55:41.968903283 -0400
+@@ -4,6 +4,7 @@
+ dosed = @SED@ -e 's,\@BASH\@,$(BASH),g' \
+ 	      -e 's,\@DATADIR\@,$(datadir),g' \
+ 	      -e 's,\@EPREFIX\@,$(EPREFIX),g' \
++	      -e 's,\@LIBEXECDIR\@,$(datadir),g' \
+ 	      -e 's,\@VERSION\@,$(VERSION)$(EXTRAVERSION),g'
+ 
+ % : %.in
+diff -urN eselect-1.3.8.orig/bin/eselect.in eselect-1.3.8/bin/eselect.in
+--- eselect-1.3.8.orig/bin/eselect.in	2013-08-29 09:51:52.657910505 -0400
++++ eselect-1.3.8/bin/eselect.in	2013-08-29 10:13:27.036869740 -0400
 @@ -22,10 +22,15 @@
  # Where are modules installed by default?
  ESELECT_DEFAULT_MODULES_PATH="${ESELECT_DATA_PATH}/modules"
@@ -21,22 +31,9 @@ Index: bin/eselect.in
  
  # Look in this place for libraries
  ESELECT_CORE_PATH="${ESELECT_DATA_PATH}/libs"
-Index: bin/Makefile.am
-===================================================================
---- bin/Makefile.am	(revision 863)
-+++ bin/Makefile.am	(working copy)
-@@ -4,6 +4,7 @@
- dosed = @SED@ -e 's,\@BASH\@,$(BASH),g' \
- 	      -e 's,\@DATADIR\@,$(datadir),g' \
- 	      -e 's,\@EPREFIX\@,$(EPREFIX),g' \
-+	      -e 's,\@LIBEXECDIR\@,$(datadir),g' \
- 	      -e 's,\@VERSION\@,$(VERSION),g'
- 
- % : %.in
-Index: libs/Makefile.am
-===================================================================
---- libs/Makefile.am	(revision 863)
-+++ libs/Makefile.am	(working copy)
+diff -urN eselect-1.3.8.orig/libs/Makefile.am eselect-1.3.8/libs/Makefile.am
+--- eselect-1.3.8.orig/libs/Makefile.am	2013-08-29 09:51:52.655910505 -0400
++++ eselect-1.3.8/libs/Makefile.am	2013-08-29 10:14:16.732868175 -0400
 @@ -1,6 +1,7 @@
  eselectlibsdir = $(datadir)/$(PACKAGE_NAME)/libs/
  
@@ -63,8 +60,9 @@ Index: libs/Makefile.am
  
  %.bash : %.bash.in
  	@$(dosed) $< > $@
---- libs/alternatives.bash.in.orig	1970-01-01 01:00:00.000000000 +0100
-+++ libs/alternatives.bash.in	2011-09-06 18:55:43.000000000 +0100
+diff -urN eselect-1.3.8.orig/libs/alternatives.bash.in eselect-1.3.8/libs/alternatives.bash.in
+--- eselect-1.3.8.orig/libs/alternatives.bash.in	1969-12-31 19:00:00.000000000 -0500
++++ eselect-1.3.8/libs/alternatives.bash.in	2013-08-29 10:05:01.602885658 -0400
 @@ -0,0 +1,550 @@
 +# Copyright 2008 Mike Kelly
 +# Copyright 2009 David Leverton
