@@ -1,0 +1,24 @@
+diff -urN deja-dup-29.1.old/cmake/FindVala.cmake deja-dup-29.1/cmake/FindVala.cmake
+--- deja-dup-29.1.old/cmake/FindVala.cmake	2013-11-26 11:56:14.507917276 -0500
++++ deja-dup-29.1/cmake/FindVala.cmake	2013-11-26 11:53:02.153468465 -0500
+@@ -46,7 +46,7 @@
+ 
+ # Search for the valac executable in the usual system paths
+ # Some distributions rename the valac to contain the major.minor in the binary name
+-find_program(VALA_EXECUTABLE NAMES valac valac-0.20 valac-0.18 valac-0.16 valac-0.14 valac-0.12 valac-0.10)
++find_program(VALA_EXECUTABLE NAMES valac valac-0.22 valac-0.20 valac-0.18 valac-0.16 valac-0.14 valac-0.12 valac-0.10)
+ mark_as_advanced(VALA_EXECUTABLE)
+ 
+ # Determine the valac version
+diff -urN deja-dup-29.1.old/deja-dup/widgets/WidgetUtils.vala deja-dup-29.1/deja-dup/widgets/WidgetUtils.vala
+--- deja-dup-29.1.old/deja-dup/widgets/WidgetUtils.vala	2013-11-26 11:56:03.061593039 -0500
++++ deja-dup-29.1/deja-dup/widgets/WidgetUtils.vala	2013-11-26 12:07:55.483773766 -0500
+@@ -59,7 +59,7 @@
+       // Use Legacy unless we detect a different shell.
+       shell = ShellEnv.LEGACY;
+       // Next check for Shell by notification capabilities
+-      unowned List<string> caps = Notify.get_server_caps();
++      List<string> caps = Notify.get_server_caps();
+       bool persistence = false, actions = false;
+       foreach (string cap in caps) {
+         if (cap == "persistence")
