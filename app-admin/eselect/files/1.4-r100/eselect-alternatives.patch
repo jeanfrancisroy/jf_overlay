@@ -21,16 +21,14 @@ Index: bin/eselect.in
  
  # Look in this place for libraries
  ESELECT_CORE_PATH="${ESELECT_DATA_PATH}/libs"
-Index: bin/Makefile.am
-===================================================================
---- bin/Makefile.am	(revision 863)
-+++ bin/Makefile.am	(working copy)
+--- bin/Makefile.am.orig	2013-09-02 14:35:05.328684465 +0400
++++ bin/Makefile.am	2013-09-02 14:49:50.895842067 +0400
 @@ -4,6 +4,7 @@
  dosed = @SED@ -e 's,\@BASH\@,$(BASH),g' \
  	      -e 's,\@DATADIR\@,$(datadir),g' \
  	      -e 's,\@EPREFIX\@,$(EPREFIX),g' \
 +	      -e 's,\@LIBEXECDIR\@,$(datadir),g' \
- 	      -e 's,\@VERSION\@,$(VERSION),g'
+ 	      -e 's,\@VERSION\@,$(VERSION)$(EXTRAVERSION),g'
  
  % : %.in
 Index: libs/Makefile.am

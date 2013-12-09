@@ -5,12 +5,12 @@ EAPI=5
 inherit autotools eutils bash-completion-r1
 
 DESCRIPTION="Gentoo's multi-purpose configuration and management tool"
-HOMEPAGE="https://wiki.gentoo.org/wiki/Project:Eselect"
-SRC_URI="mirror://gentoo/${P}.tar.xz"
+HOMEPAGE="http://wiki.gentoo.org/wiki/Project:Eselect"
+SRC_URI="http://dev.gentoo.org/~ulm/eselect/${P}.tar.xz"
 
 LICENSE="GPL-2+ || ( GPL-2+ CC-BY-SA-2.5 )"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="*"
 IUSE="doc emacs vim-syntax"
 
 RDEPEND="sys-apps/sed
