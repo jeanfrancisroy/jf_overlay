@@ -16,3 +16,4 @@ pantheon-base/switchboard-plug-default-applications
 pantheon-base/switchboard-plug-keyboard
 pantheon-base/switchboard-plug-pantheon-shell
 pantheon-base/switchboard-plug-power
+media-plugins/gst-plugins-meta:1.0
