@@ -2,4 +2,4 @@
 =dev-libs/glib-2.40.0
 =dev-libs/gobject-introspection-1.40.0
 =dev-libs/gobject-introspection-common-1.40.0
-=x11-misc/lightdm-1.9.14
+=dev-libs/json-glib-1.0.0
