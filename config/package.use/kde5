@@ -10,3 +10,7 @@ kde-base/okular:4 -handbook
 kde-base/katepart:4 -handbook
 kde-base/gwenview:4 -handbook
 kde-base/dolphin:4 -handbook
+kde-base/kdm -handbook
+kde-base/kdepasswd -handbook
+kde-base/kdesu -handbook
+x11-misc/lightdm qt4
