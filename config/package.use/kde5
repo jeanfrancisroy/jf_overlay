@@ -15,3 +15,4 @@ kde-base/kdepasswd -handbook
 kde-base/kdesu -handbook
 x11-misc/lightdm qt4
 media-libs/gd fontconfig
+dev-util/cmake -qt4 qt5
