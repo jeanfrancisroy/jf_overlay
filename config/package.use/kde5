@@ -14,3 +14,4 @@ kde-base/kdm -handbook
 kde-base/kdepasswd -handbook
 kde-base/kdesu -handbook
 x11-misc/lightdm qt4
+media-libs/gd fontconfig
