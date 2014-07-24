@@ -3,3 +3,4 @@ kde-base/konsole:5
 x11-misc/lightdm-kde
 x11-misc/pcmanfm-qt
 media-gfx/lximage-qt
+app-text/zathura-meta
