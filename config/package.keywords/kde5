@@ -8,3 +8,7 @@
 kde-base/konsole **
 kde-misc/kde-gtk-config **
 kde-base/kate **
+x11-misc/sddm **
+sys-auth/qauth **
+kde-misc/kscreen:5 **
+x11-libs/libkscreen:5 **
