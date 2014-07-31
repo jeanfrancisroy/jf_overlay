@@ -2,6 +2,7 @@ kde-base/kate:5
 kde-base/konsole:5
 kde-misc/kscreen:5
 kde-misc/sddm-kcm:5
+kde-misc/kde-gtk-config:5
 x11-misc/pcmanfm-qt
 media-gfx/lximage-qt
 app-text/zathura-meta
