@@ -19,3 +19,5 @@ dev-util/cmake -qt4 qt5
 x11-misc/sddm -qt4 -upower qt5
 sys-auth/qauth -qt4 qt5
 kde-frameworks/plasma -opengl
+dev-vcs/subversion -kde
+dev-qt/qtmultimedia -alsa

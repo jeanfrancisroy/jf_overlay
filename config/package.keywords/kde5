@@ -13,3 +13,4 @@ sys-auth/qauth **
 kde-misc/kscreen:5 **
 x11-libs/libkscreen:5 **
 kde-misc/sddm-kcm:5 **
+x11-themes/qt-gtk-engine **
