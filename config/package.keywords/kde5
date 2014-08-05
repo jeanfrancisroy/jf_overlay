@@ -1,7 +1,7 @@
 =dev-libs/libdbusmenu-qt-9999 **
 =dev-libs/extra-cmake-modules-9999 **
 =kde-misc/plasma-nm-9999 **
-=net-libs/libnm-qt-9999 **
+<net-libs/libnm-qt-9999 **
 =dev-libs/extra-cmake-modules-9999 **
 =net-wireless/bluedevil-9999 **
 =net-libs/libbluedevil-9999 **
