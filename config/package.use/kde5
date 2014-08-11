@@ -21,3 +21,4 @@ sys-auth/qauth -qt4 qt5
 kde-frameworks/plasma -opengl
 dev-vcs/subversion -kde
 dev-qt/qtmultimedia -alsa
+dev-qt/qtmultimedia qml
