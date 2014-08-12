@@ -7,3 +7,7 @@ x11-misc/pcmanfm-qt
 media-gfx/lximage-qt
 app-text/zathura-meta
 media-sound/pavucontrol
+
+# KDE 4 apps
+kde-base/okular
+kde-base/dolphin
