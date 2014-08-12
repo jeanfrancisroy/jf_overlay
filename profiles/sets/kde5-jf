@@ -4,10 +4,9 @@ kde-misc/kscreen:5
 kde-misc/sddm-kcm:5
 kde-base/kde-gtk-config:5
 x11-misc/pcmanfm-qt
-media-gfx/lximage-qt
-app-text/zathura-meta
-media-sound/pavucontrol
 
 # KDE 4 apps
 kde-base/okular
 kde-base/dolphin
+kde-base/kmix
+kde-base/gwenview

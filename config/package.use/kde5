@@ -13,6 +13,9 @@ kde-base/dolphin:4 -handbook
 kde-base/kdm -handbook
 kde-base/kdepasswd -handbook
 kde-base/kdesu -handbook
+kde-base/kmix -handbook
+kde-base/kfind -handbook
+kde-base/kactivities minimal
 x11-misc/lightdm qt4
 media-libs/gd fontconfig
 dev-util/cmake -qt4 qt5
