@@ -11,3 +11,7 @@ kde-misc/kscreen:5 **
 x11-libs/libkscreen:5 **
 kde-misc/sddm-kcm:5 **
 x11-themes/qt-gtk-engine **
+kde-base/baloo **
+kde-base/baloo-widgets **
+kde-base/kde-baseapps **
+kde-base/kfilemetadata **
