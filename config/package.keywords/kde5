@@ -13,3 +13,14 @@ kde-base/baloo **
 kde-base/baloo-widgets **
 kde-base/kde-baseapps **
 kde-base/kfilemetadata **
+kde-base/okular **
+kde-base/kwrite **
+kde-misc/yakuake **
+kde-base/kmix **
+kde-base/libkcddb **
+dev-libs/extra-cmake-modules **
+kde-base/ksnapshot **
+kde-base/libkomparediff2 **
+kde-base/okteta **
+kde-base/filelight **
+=app-crypt/qca-9999 **
