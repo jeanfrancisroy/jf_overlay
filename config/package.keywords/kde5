@@ -13,3 +13,4 @@ kde-base/baloo **
 kde-base/baloo-widgets **
 kde-base/kde-baseapps **
 kde-base/kfilemetadata **
+dev-libs/extra-cmake-modules **
