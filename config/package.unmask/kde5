@@ -9,3 +9,4 @@ dev-qt/qtscript:5
 dev-qt/qtx11extras:5
 dev-qt/qtxml:5
 dev-qt/qtopengl:5
+dev-qt/qtprintsupport:5
