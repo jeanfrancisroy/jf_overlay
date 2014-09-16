@@ -2,3 +2,7 @@
 =dev-util/cmake-3.0.0
 =media-fonts/oxygen-fonts-0.4.0.1
 dev-qt/qtscript:5
+dev-qt/qtgui:5
+dev-qt/qtcore:5
+dev-qt/qtwidgets:5
+dev-qt/qtscript:5
