@@ -1,5 +1,4 @@
 =net-libs/libnm-qt-9999
 =dev-util/cmake-3.0.0
 =media-fonts/oxygen-fonts-0.4.0.1
-
-
+dev-qt/qtscript:5

@@ -25,3 +25,5 @@ kde-frameworks/plasma -opengl
 dev-vcs/subversion -kde
 dev-qt/qtmultimedia -alsa
 dev-qt/qtmultimedia qml
+app-crypt/qca -qt4 qt5
+dev-qt/qtscript scripttools
