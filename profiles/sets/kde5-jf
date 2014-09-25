@@ -1,6 +1,7 @@
 x11-misc/sddm
 kde-base/kde-gtk-config:5
 @kde-applications-live
+kde-misc/kscreen
 
 # KDE 4 apps
 kde-base/gwenview
