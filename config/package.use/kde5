@@ -16,7 +16,6 @@ kde-base/kdesu -handbook
 kde-base/kmix -handbook
 kde-base/kfind -handbook
 kde-base/kactivities minimal
-x11-misc/lightdm qt4
 media-libs/gd fontconfig
 dev-util/cmake -qt4 qt5
 x11-misc/sddm -qt4 -upower qt5
@@ -27,3 +26,10 @@ dev-qt/qtmultimedia -alsa
 dev-qt/qtmultimedia qml
 app-crypt/qca -qt4 qt5
 dev-qt/qtscript scripttools
+www-plugins/adobe-flash -kde
+net-libs/libproxy -kde
+media-video/vlc -kde
+kde-base/breeze -kde4
+dev-vcs/subversion -kde
+app-office/libreoffice-bin -kde
+app-arch/p7zip -kde
