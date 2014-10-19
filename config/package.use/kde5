@@ -33,3 +33,4 @@ kde-base/breeze -kde4
 dev-vcs/subversion -kde
 app-office/libreoffice-bin -kde
 app-arch/p7zip -kde
+net-misc/networkmanager modemmanager
