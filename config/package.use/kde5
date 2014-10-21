@@ -34,3 +34,4 @@ dev-vcs/subversion -kde
 app-office/libreoffice-bin -kde
 app-arch/p7zip -kde
 net-misc/networkmanager modemmanager
+sys-auth/polkit -kde
