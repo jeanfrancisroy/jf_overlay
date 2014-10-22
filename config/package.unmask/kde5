@@ -28,3 +28,6 @@ dev-qt/qttest:5
 dev-qt/qtwebkit:5
 dev-qt/qtxmlpatterns:5
 
+kde-frameworks/kf-env
+x11-misc/sddm
+=net-misc/networkmanager-0.9.10.0-r1
