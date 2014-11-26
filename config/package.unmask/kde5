@@ -30,3 +30,8 @@ dev-qt/qtxmlpatterns:5
 kde-frameworks/kf-env
 x11-misc/sddm
 =net-misc/networkmanager-0.9.10.0-r1
+=kde-apps/gwenview-9999
+=kde-apps/kwrite-9999
+=kde-apps/okteta-9999
+=kde-apps/kate-9999
+=kde-apps/konsole-9999
