@@ -4,7 +4,6 @@
 kde-apps/konsole **
 kde-apps/kde-gtk-config **
 kde-apps/kate **
-kde-misc/kscreen:5 **
 kde-apps/okular **
 kde-apps/kwrite **
 kde-misc/yakuake:5 **
@@ -23,4 +22,3 @@ kde-apps/dolphin **
 kde-apps/oxygen-icons **
 kde-misc/kcm-touchpad:5 **
 dev-libs/extra-cmake-modules **
-
