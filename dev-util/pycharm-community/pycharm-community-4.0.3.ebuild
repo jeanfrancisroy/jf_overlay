@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-util/pycharm-community/pycharm-community-3.4.1.ebuild,v 1.1 2014/09/14 16:08:17 xmw Exp $
 
 EAPI=5
 
@@ -8,7 +6,7 @@ inherit eutils readme.gentoo
 
 DESCRIPTION="Intelligent Python IDE with unique code assistance and analysis"
 HOMEPAGE="http://www.jetbrains.com/pycharm/"
-SRC_URI="http://download.jetbrains.com/python/${P}.tar.gz"
+SRC_URI="http://download-ln.jetbrains.com/python/${PN}-${PV}.tar.gz"
 
 LICENSE="Apache-2.0 BSD CDDL MIT-with-advertising"
 SLOT="0"
