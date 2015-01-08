@@ -22,3 +22,4 @@ kde-apps/dolphin **
 kde-apps/oxygen-icons **
 kde-misc/kcm-touchpad:5 **
 dev-libs/extra-cmake-modules **
+kde-apps/kwalletmanager **
