@@ -35,4 +35,4 @@ x11-misc/sddm
 =kde-apps/okteta-9999
 =kde-apps/kate-9999
 =kde-apps/konsole-9999
-kde-misc/kscreen:5
+kde-plasma/kscreen:5
