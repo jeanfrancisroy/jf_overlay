@@ -1,6 +1,6 @@
 =dev-libs/libdbusmenu-qt-9999 **
-=net-wireless/bluedevil-9999 **
-=net-libs/libbluedevil-9999 **
+kde-plasma/bluedevil:5 **
+kde-plasma/libbluedevil:5 **
 kde-apps/konsole **
 kde-apps/kde-gtk-config **
 kde-apps/kate **
