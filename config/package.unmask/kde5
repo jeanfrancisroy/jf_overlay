@@ -37,3 +37,4 @@ x11-misc/sddm
 =kde-apps/konsole-9999
 kde-plasma/kscreen:5
 kde-frameworks/networkmanager-qt:5
+=dev-libs/extra-cmake-modules-1.6.0

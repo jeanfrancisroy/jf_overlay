@@ -18,8 +18,8 @@ kde-apps/gwenview **
 kde-apps/ark **
 kde-apps/kfind **
 kde-apps/libkonq:5 **
-kde-apps/dolphin **
-kde-apps/oxygen-icons **
+kde-apps/dolphin:5 **
+kde-apps/oxygen-icons:5 **
 kde-misc/kcm-touchpad:5 **
+kde-apps/kwalletmanager:5 **
 dev-libs/extra-cmake-modules **
-kde-apps/kwalletmanager **
