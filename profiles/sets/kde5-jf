@@ -1,5 +1,4 @@
 x11-misc/sddm
-kde-apps/kde-gtk-config:5
 @kde-applications-live
 kde-plasma/kscreen
-kde-misc/kcm-touchpad:5
+kde-plasma/kcm-touchpad:5
