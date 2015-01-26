@@ -22,3 +22,6 @@ kde-apps/dolphin:5 **
 kde-apps/oxygen-icons:5 **
 kde-apps/kwalletmanager:5 **
 dev-libs/extra-cmake-modules **
+kde-apps/bovo:5 **
+kde-apps/libkmahjongg:5 **
+kde-apps/libkdegames:5 **
