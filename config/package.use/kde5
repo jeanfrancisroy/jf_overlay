@@ -35,3 +35,6 @@ app-office/libreoffice-bin -kde
 app-arch/p7zip -kde
 net-misc/networkmanager modemmanager ppp
 sys-auth/polkit -kde
+kde-apps/kdiamond:5 **
+kde-apps/klines:5 **
+kde-apps/kapman:5 **
