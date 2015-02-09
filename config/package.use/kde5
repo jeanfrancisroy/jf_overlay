@@ -38,3 +38,4 @@ sys-auth/polkit -kde
 kde-apps/kdiamond:5 **
 kde-apps/klines:5 **
 kde-apps/kapman:5 **
+app-crypt/qca -qt4
