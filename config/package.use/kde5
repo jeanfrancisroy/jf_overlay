@@ -39,3 +39,5 @@ kde-apps/kdiamond:5 **
 kde-apps/klines:5 **
 kde-apps/kapman:5 **
 app-crypt/qca -qt4
+dev-qt/qtwebkit qml
+dev-python/PyQt5 gui
