@@ -57,3 +57,7 @@ kde-apps/pykde5 **
 kde-apps/kig:5 **
 kde-apps/ksquares:5 **
 kde-apps/kgeography:5 **
+kde-apps/kcharselect:5 **
+kde-apps/kcalc:5 **
+kde-apps/print-manager:5 **
+kde-apps/ktimer:5 **
