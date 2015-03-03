@@ -7,7 +7,7 @@ kde-apps/okular:5 **
 kde-apps/kwrite:5 **
 kde-misc/yakuake:5 **
 kde-apps/kmix:5 **
-kde-apps/libkcddb **
+kde-apps/libkcddb:5 **
 kde-apps/ksnapshot:5 **
 kde-apps/libkomparediff2 **
 kde-apps/okteta:5 **
