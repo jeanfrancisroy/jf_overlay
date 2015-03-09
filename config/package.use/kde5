@@ -45,3 +45,4 @@ app-admin/system-config-printer-gnome python_single_target_python3_4 -python_sin
 media-libs/mlt qt4 sdl kdenlive melt -kde
 virtual/ffmpeg sdl
 media-video/ffmpeg sdl
+media-libs/mlt -qt4
