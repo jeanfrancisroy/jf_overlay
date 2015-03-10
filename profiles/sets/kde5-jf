@@ -2,3 +2,4 @@ x11-misc/sddm
 @kde-applications-live
 kde-plasma/kscreen
 kde-plasma/kcm-touchpad:5
+kde-apps/oxygen-icons:5

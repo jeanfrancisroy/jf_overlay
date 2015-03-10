@@ -46,3 +46,4 @@ media-libs/mlt qt4 sdl kdenlive melt -kde
 virtual/ffmpeg sdl
 media-video/ffmpeg sdl
 media-libs/mlt -qt4
+lxqt-base/lxqt-meta -icons
